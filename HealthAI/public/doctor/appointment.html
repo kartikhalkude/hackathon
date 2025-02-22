@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Prescription System - Doctor Portal</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="doctor.css">
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  </head>
+  
+  <body class="bg-gray-100">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <div class="header-logo">
+          <i class="fas fa-hospital"></i>
+          <span>MedConnect</span>
+        </div>
+        <div class="header-actions">
+        
+          <button onclick="logout()">
+            Logout
+          </button>
+        </div>
+      </div>
+      <link rel="stylesheet" href="doctor.css">
+    </header>
+
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside class="w-64 sidebar">
+        <nav class="mt-8">
+            <a id="dashboard-link" href="../doctor.html" class="nav-link flex items-center px-6 py-3 text-gray-300 hover:text-white hover:bg-blue-600/20 transition-colors">
+                <i class="fas fa-home w-6"></i>
+                <span class="ml-2">Dashboard</span>
+            </a>
+            <a id="prescriptions-link" href="prescription.html" class="nav-link flex items-center px-6 py-3 text-gray-300 hover:text-white hover:bg-blue-600/20 transition-colors">
+                <i class="fas fa-file-medical w-6"></i>
+                <span class="ml-2">Prescriptions</span>
+            </a>
+            <a id="appointments-link" href="appointment.html" class="nav-link flex items-center px-6 py-3 text-gray-300 hover:text-white hover:bg-blue-600/20 transition-colors">
+                <i class="fas fa-clock w-6"></i>
+                <span class="ml-2">Appointments</span>
+            </a>
+        </nav>
+    </aside>
+
+  
+    <main class="flex-1 p-6">
+      <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Appointments</h2>
+        
+        <!-- Appointment Filters -->
+        <div class="flex gap-4 mb-6">
+          <select id="statusFilter" class="px-4 py-2 border rounded-lg">
+            <option value="all">All Status</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          
+          <input type="date" id="dateFilter" class="px-4 py-2 border rounded-lg">
+          
+          <button onclick="resetFilters()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+            Reset Filters
+          </button>
+        </div>
+    
+        <!-- Appointments List -->
+        <div id="appointmentsList" class="space-y-4"></div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Appointment Details Modal -->
+  <div id="appointmentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+    <div class="bg-white rounded-lg p-6 max-w-2xl w-full">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold">Appointment Details</h3>
+        <button onclick="closeAppointmentModal()" class="text-gray-500 hover:text-gray-700">✕</button>
+      </div>
+      <div id="appointmentDetails" class="space-y-4"></div>
+      <div class="flex justify-end space-x-4 mt-6">
+        <button id="completeAppointmentBtn" onclick="updateAppointmentStatus('completed')" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+          Mark as Completed
+        </button>
+        <button id="cancelAppointmentBtn" onclick="updateAppointmentStatus('cancelled')" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+          Cancel Appointment
+        </button>
+      </div>
+      
+    </div>
+  </div>
+<script src="doctor.js"></script>
+<script></script>
+<script defer>
+ document.addEventListener("DOMContentLoaded", () => {
+     // Get current page path
+     const currentPath = window.location.pathname;
+
+     // Remove 'active' class from all links
+     document.querySelectorAll(".nav-link").forEach((link) => {
+         link.classList.remove("active");
+     });
+
+     // Define the page-to-ID mapping
+     const pageMap = {
+         "doctor.html": "dashboard-link",
+         "prescription.html": "prescriptions-link",
+         "appointment.html": "appointments-link"
+     };
+
+     // Loop through the page map and apply the active class
+     for (const page in pageMap) {
+         if (currentPath.includes(page)) {
+             document.getElementById(pageMap[page]).classList.add("active");
+         }
+     }
+ });
+</script>
+   
+  </body>
+</html>

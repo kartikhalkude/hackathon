@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Prescription System - Doctor Portal</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    
+    <link rel="stylesheet" href="doctor/doctor.css">
+  
+  </head>
+  <body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <div class="header-logo">
+          <i class="fas fa-hospital"></i>
+          <span>MedConnect</span>
+        </div>
+        <div class="header-actions">
+          <span id="doctorName" class="text-gray-700 font-medium"></span>
+          <button onclick="logout()">
+            Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside class="w-64 sidebar">
+        <nav class="mt-8">
+          <a
+            href="doctor.html"
+            class="flex items-center px-6 py-3 text-gray-300 hover:text-white hover:bg-blue-600/20 transition-colors active"
+          >
+            <i class="fas fa-home w-6"></i>
+            <span class="ml-2">Dashboard</span>
+          </a>
+          <a
+            href="doctor/prescription.html"
+            class="flex items-center px-6 py-3 text-gray-300 hover:text-white hover:bg-blue-600/20 transition-colors"
+          >
+            <i class="fas fa-file-medical w-6"></i>
+            <span class="ml-2">Prescriptions</span>
+          </a>
+          <a
+            href="./doctor/appointment.html"
+            class="flex items-center px-6 py-3 text-gray-300 hover:text-white hover:bg-blue-600/20 transition-colors"
+          >
+            <i class="fas fa-clock w-6"></i>
+            <span class="ml-2">Appointments</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 p-8" style="background: linear-gradient(to right, #b0c4ff, #a3caff, #79a7d3);
+">
+        <div class="max-w-7xl mx-auto">
+          <!-- Welcome Section -->
+          <div class="gradient-bg rounded-lg p-8 text-white mb-8">
+            <h1 class="text-3xl font-bold">
+              Welcome Back, Dr. <span id="welcomeName"></span>
+            </h1>
+            <p class="mt-2 opacity-90">
+              Manage your patients and prescriptions with our AI-powered system
+            </p>
+          </div>
+
+          <!-- Stats Grid -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+          >
+            <div class="card-stats rounded-lg p-6">
+              <div class="flex items-center">
+                <div class="icon-circle bg-blue-100 text-blue-600">
+                  <i class="fas fa-calendar-check text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-gray-500 text-sm">Today's Appointments</h3>
+                  <p
+                    class="text-2xl font-semibold text-gray-800"
+                    id="appointmentCount"
+                  >
+                    -
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-stats rounded-lg p-6">
+              <div class="flex items-center">
+                <div class="icon-circle bg-purple-100 text-purple-600">
+                  <i class="fas fa-file-prescription text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-gray-500 text-sm">Pending Reviews</h3>
+                  <p
+                    class="text-2xl font-semibold text-gray-800"
+                    id="pendingCount"
+                  >
+                    -
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-stats rounded-lg p-6">
+              <div class="flex items-center">
+                <div class="icon-circle bg-green-100 text-green-600">
+                  <i class="fas fa-user-injured text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-gray-500 text-sm">Total Patients</h3>
+                  <p
+                    class="text-2xl font-semibold text-gray-800"
+                    id="patientCount"
+                  >
+                    -
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Recent Appointments -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">
+                  Recent Appointments
+                </h2>
+                <a href="#" class="text-blue-600 hover:text-blue-700 text-sm"
+                  >View All</a
+                >
+              </div>
+              <div
+                class="appointments-list overflow-y-auto max-h-64"
+                id="recentAppointments"
+              >
+                <!-- Appointments will be loaded here -->
+              </div>
+            </div>
+
+            <!-- Pending Prescriptions -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">
+                  Pending Prescriptions
+                </h2>
+                <a href="#" class="text-blue-600 hover:text-blue-700 text-sm"
+                  >View All</a
+                >
+              </div>
+              <div
+                id="pendingPrescriptionsList"
+                class="overflow-y-auto max-h-64"
+              >
+                <!-- Pending prescriptions will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Include the existing modals and JavaScript from doctor.html -->
+    <div
+      id="reviewModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-start justify-center p-4 overflow-y-auto"
+    >
+      <!-- Review Modal Content (Keep existing content) -->
+    </div>
+
+    <div
+      id="appointmentModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center"
+    >
+      <!-- Appointment Modal Content (Keep existing content) -->
+    </div>
+    <script src="./doctor/doctor.js"></script>
+    <script>
+      // Include all existing JavaScript from doctor.html
+      // Add new dashboard-specific functions
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!sessionStorage.getItem("token")) {
+          window.location.href = "/index.html";
+          return;
+        }
+        loadDoctorInfo();
+        loadDashboardData();
+      });
+
+      async function loadDoctorInfo() {
+        try {
+          const response = await fetch("/api/doctor/info", {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          });
+          const data = await response.json();
+          if (data && data.name) {
+            document.getElementById(
+              "doctorName"
+            ).textContent = `Dr. ${data.name}`;
+            document.getElementById("welcomeName").textContent = data.name;
+          }
+        } catch (error) {
+          console.error("Error loading doctor info:", error);
+        }
+      }
+
+      async function loadDashboardData() {
+        try {
+          // Load appointments
+          const appointmentsResponse = await fetch("/api/doctor/appointments", {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          });
+          const appointments = await appointmentsResponse.json();
+
+          // Load prescriptions
+          const prescriptionsResponse = await fetch("/api/prescriptions", {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          });
+          const prescriptions = await prescriptionsResponse.json();
+
+          // Update dashboard stats
+          updateDashboardStats(appointments, prescriptions);
+
+          // Display recent activities
+          displayRecentAppointments(appointments);
+          displayPendingPrescriptions(
+            prescriptions.filter((p) => p.status === "pending")
+          );
+        } catch (error) {
+          console.error("Error loading dashboard data:", error);
+        }
+      }
+
+      function updateDashboardStats(appointments, prescriptions) {
+        // Today's appointments
+        const today = new Date().toISOString().split("T")[0];
+        const todayAppointments = appointments.filter(
+          (apt) => apt.date.split("T")[0] === today
+        );
+        document.getElementById("appointmentCount").textContent =
+          todayAppointments.length;
+
+        // Pending prescriptions
+        const pendingPrescriptions = prescriptions.filter(
+          (p) => p.status === "pending"
+        );
+        document.getElementById("pendingCount").textContent =
+          pendingPrescriptions.length;
+
+        // Unique patients count
+        const uniquePatients = new Set(
+          appointments.map((apt) => apt.patient._id)
+        );
+        document.getElementById("patientCount").textContent =
+          uniquePatients.size;
+      }
+
+      function displayRecentAppointments(appointments) {
+        const container = document.getElementById("recentAppointments");
+        if (appointments.length === 0) {
+          container.innerHTML =
+            '<p class="text-gray-500">No appointments scheduled</p>';
+          return;
+        }
+
+        container.innerHTML = appointments
+          .slice(0, 5)
+          .map(
+            (apt) => `
+                <div class="border-b border-gray-200 py-3">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-medium text-gray-800">${
+                              apt.patient.name
+                            }</p>
+                            <p class="text-sm text-gray-500">${new Date(
+                              apt.date
+                            ).toLocaleDateString()} - ${apt.time}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-sm ${getStatusBadgeColor(
+                          apt.status
+                        )}">
+                            ${apt.status}
+                        </span>
+                    </div>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      // Keep all other existing functions from doctor.html
+    </script>
+  </body>
+</html>

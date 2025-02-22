@@ -1,0 +1,146 @@
+* {
+    font-family: "Poppins", sans-serif;
+  }
+  .sidebar {
+    min-height: calc(100vh - 64px);
+    background: linear-gradient(180deg, #1a365d 0%, #2d3748 100%);
+  }
+  .active {
+    background: rgba(66, 153, 225, 0.2);
+    border-left: 4px solid #4299e1;
+  }
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  .card-stats {
+    background: white;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+  }
+  .card-stats:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  .icon-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .appointments-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  .appointments-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .appointments-list::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 3px;
+  }
+  /* Header Styling */
+.header {
+background: linear-gradient(to right, #1e3a5f 0%, #2c5282 100%);
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+position: sticky;
+top: 0;
+z-index: 100;
+}
+
+/* Container */
+.header-container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 1rem 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+height: 4rem;
+}
+
+/* Logo */
+.header-logo {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+text-decoration: none;
+}
+
+.header-logo i {
+color: #93c5fd;
+font-size: 1.75rem;
+transition: transform 0.2s ease;
+}
+
+.header-logo:hover i {
+transform: rotate(-10deg);
+}
+
+.header-logo span {
+font-size: 1.5rem;
+font-weight: 700;
+color: #ffffff;
+letter-spacing: -0.025em;
+text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Actions Section */
+.header-actions {
+display: flex;
+align-items: center;
+gap: 1.5rem;
+}
+
+/* Doctor Name */
+#doctorName {
+color: #f8fafc;
+font-weight: 500;
+padding: 0.5rem 1rem;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 6px;
+box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Logout Button */
+.header-actions button {
+background: #ef4444;
+color: white;
+padding: 0.625rem 1.25rem;
+border-radius: 6px;
+font-weight: 600;
+transition: all 0.2s ease;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-actions button:hover {
+background: #dc2626;
+transform: translateY(-1px);
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.header-container {
+padding: 0.75rem 1rem;
+height: 3.5rem;
+}
+
+.header-logo i {
+font-size: 1.5rem;
+}
+
+.header-logo span {
+font-size: 1.25rem;
+}
+
+.header-actions {
+gap: 1rem;
+}
+
+.header-actions button {
+padding: 0.5rem 1rem;
+font-size: 0.875rem;
+}
+}

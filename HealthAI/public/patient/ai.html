@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Prescription - Synapse</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="patient.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <!-- Logo -->
+      <div class="header-logo">
+        <svg
+          class="w-8 h-8"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 4L20 8V16L12 20L4 16V8L12 4Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M12 4V12M12 12V20M12 12L4 8M12 12L20 8"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Synapse</span>
+      </div>
+
+      <!-- Header -->
+      <header class="header">
+        <div class="header-container">
+          <div class="header-actions">
+            <button onclick="logout()" class="flex items-center gap-2">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <nav class="sidebar-nav">
+          <a href="/patient.html" class="nav-link" id="dashboard-link">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a
+            href="/patient/pbookap.html"
+            class="nav-link"
+            id="appointments-link"
+          >
+            <i class="fas fa-calendar-alt"></i>
+            <span>Book Appointment</span>
+          </a>
+          <a href="/patient/ai.html" class="nav-link" id="ai-link">
+            <i class="fas fa-robot"></i>
+            <span>AI Prescription</span>
+          </a>
+          <a
+            href="./prescription.html"
+            class="nav-link"
+            id="prescriptions-link"
+          >
+            <i class="fas fa-file-medical"></i>
+            <span>Prescriptions</span>
+          </a>
+          <a
+            href="./appointment.html"
+            class="nav-link"
+            id="view-appointments-link"
+          >
+            <i class="fas fa-clock"></i>
+            <span>Appointments</span>
+          </a>
+          <a href="./scheme.html" id="view-schemes-link" class="nav-link">
+            <i class="fas fa-hand-holding-medical w-6"></i>
+            <span class="ml-2">Health Schemes</span>
+          </a>
+          <a
+            href="./health-monitor.html"
+            id="health-monitor-link"
+            class="nav-link"
+          >
+            <i class="fas fa-heartbeat w-6"></i>
+            <span class="ml-2">Health Monitor</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="content-container">
+          <!-- Left Column - Symptoms Form -->
+          <div class="form-section bg-white rounded-lg shadow-sm p-6 mt-6">
+            <h2
+              style="
+                font-size: 30px;
+                font-weight: bold;
+                color: #1f2937;
+                margin-bottom: 1rem;
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+              "
+            >
+              Describe Your Symptoms
+            </h2>
+
+            <form id="symptomForm">
+              <div class="form-group">
+                <label>Patient Name:</label>
+                <input type="text" id="patientFullName" required />
+              </div>
+
+              <div class="form-group double">
+                <div>
+                  <label>Age:</label>
+                  <input
+                    type="number"
+                    id="patientAge"
+                    required
+                    min="1"
+                    max="120"
+                  />
+                </div>
+                <div>
+                  <label>Severity (1-10):</label>
+                  <input
+                    type="number"
+                    id="severity"
+                    min="1"
+                    max="10"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Preferred Language:</label>
+                <select id="prescriptionLanguage" required>
+                  <option value="English">English</option>
+                  <option value="Marathi">Marathi</option>
+                  <option value="Kannada">Kannada</option>
+                  <option value="Hindi">Hindi</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Symptoms:</label>
+                <textarea
+                  id="symptoms"
+                  rows="4"
+                  required
+                  placeholder="Please describe your symptoms in detail..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Duration:</label>
+                <input
+                  type="text"
+                  id="duration"
+                  required
+                  placeholder="e.g., 3 days, 1 week, etc."
+                />
+              </div>
+
+              <div class="form-actions">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="analyzeSymptoms()"
+                >
+                  Analyze with AI
+                </button>
+
+                <div id="aiDiagnosisBox" class="info-box hidden"></div>
+
+                <div class="doctor-selection">
+                  <label>Select Doctor:</label>
+                  <div class="select-wrapper">
+                    <select id="doctorSelect" required>
+                      <option value="">Choose a doctor...</option>
+                    </select>
+                  </div>
+                  <div id="doctorInfo" class="info-box hidden">
+                    <p>
+                      <strong>Specialization:</strong>
+                      <span id="doctorSpecialization"></span>
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-secondary hidden"
+                  id="submitSymptomsBtn"
+                >
+                  Submit to Doctor
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="ai-loading-container" id="aiLoadingAnimation">
+            <div class="neural-network"></div>
+            <div class="brain-loader"></div>
+
+            <div class="loading-text">Analyzing Symptoms</div>
+            <div class="loading-subtext">Reviewing your data</div>
+
+            <div class="hex-background"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get current page path
+        const currentPath = window.location.pathname;
+
+        // Remove 'active' class from all links
+        document.querySelectorAll(".nav-link").forEach((link) => {
+          link.classList.remove("active");
+        });
+
+        // Add 'active' class based on current page
+        if (currentPath.includes("patient.html")) {
+          document.getElementById("dashboard-link").classList.add("active");
+        } else if (currentPath.includes("pbookap.html")) {
+          document.getElementById("appointments-link").classList.add("active");
+        } else if (currentPath.includes("ai.html")) {
+          document.getElementById("ai-link").classList.add("active");
+        } else if (currentPath.includes("prescription.html")) {
+          document.getElementById("prescriptions-link").classList.add("active");
+        } else if (currentPath.includes("appointment.html")) {
+          document
+            .getElementById("view-appointments-link")
+            .classList.add("active");
+        } else if (currentPath.includes("scheme.html")) {
+          document.getElementById("view-schemes-link").classList.add("active");
+        } else if (currentPath.includes("health-monitor.html")) {
+          document
+            .getElementById("health-monitor-link")
+            .classList.add("active");
+        }
+      });
+    </script>
+    <script src="patientscript.js"></script>
+    <script src="https://js.puter.com/v2/"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </body>
+</html>
